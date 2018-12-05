@@ -69,3 +69,6 @@ CREATE TABLE "weave_membership"(
     "weave_title" CHAR(512)
 );
 success!
+timestamp: 2018-12-04T16:32:58.168108
+ALTER TABLE "weave" ADD "creator" CHAR(512);
+success!

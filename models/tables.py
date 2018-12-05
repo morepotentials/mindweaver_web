@@ -1,6 +1,10 @@
+def get_user_email():
+    return None if auth.user is None else auth.user.email
+
 db.define_table('weave',
                 Field('title'),
-                Field('purpose')
+                Field('purpose'),
+                Field('creator', default=get_user_email())
                 )
 
 db.define_table('weave_membership',

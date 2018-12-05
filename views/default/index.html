@@ -5,9 +5,11 @@
 {{end}}
 
 <link rel="stylesheet" href="{{=URL('static','css/interface.css')}}"/>
+<script>
+  var get_your_weaves_url = "{{=URL('api', 'get_your_weaves')}}";
+</script>
 
-
-<div class="interface">
+<div id ="app" class="interface">
 
   <div class="row top-interface">
 
@@ -15,7 +17,7 @@
         <h3>For Me</h3>
     </div>
     <div class="col-sm-4 text-center">
-        <h3>From ME</h3>
+        <h3>From Me</h3>
     </div>
     <div class="col-sm-4 text-center border-left">
         <h3>For Others</h3>
@@ -33,3 +35,5 @@
   
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="{{=URL('static', 'js/default_index.js')}}"></script>
