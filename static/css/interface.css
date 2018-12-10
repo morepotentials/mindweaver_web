@@ -10,14 +10,21 @@ body,html {
     height: 100%;
 }
 
+.title {
+    border-bottom: 3px solid black;
+}
+
 .top-interface {
     height: 60%;
 }
 
 .bottom-interface {
     border-top: 1px solid black;
-    height: 40%;
-    
+    min-height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    overflow: scroll;
 }
 
 .border-left{
@@ -28,3 +35,59 @@ body,html {
 .border-right{
     border-right: 1px solid black;
 }
+
+.weave {
+    display: block;
+    margin: auto;
+    width: 70%;
+    border-radius: 10px;
+    background-color: lightgray;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.weave:hover {
+    background-color: rgb(230, 222, 222);
+    cursor: pointer;
+}
+
+.weave-title {
+    font-weight: bold;
+}
+
+.modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: table;
+    transition: opacity .3s ease;
+  }
+  
+  .modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .row.bottom-interface {
+    padding: 10px;
+  }
+
+  .users {
+      margin-top: 20px;
+  }
+
+  .user-container {
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+  }
+
+  .user-checkbox {
+      margin: 15px;
+  }

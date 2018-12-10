@@ -1,17 +1,105 @@
-var get_your_weaves = function() {
-    $.getJSON(get_your_weaves_url, function(response) {
+$('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+
+//WEAVES
+var process_weaves = function() {
+  var i=0;
+  var j=0;
+  var k=0;
+  app.for_me.map(function(e) {
+    Vue.set(e, 'idx', i++);
+    Vue.set(e, 'show_modal', false);
+  });
+  app.from_me.map(function(e) {
+    Vue.set(e, 'idx', j++);
+    Vue.set(e, 'show_modal', false);
+  });
+  app.for_others.map(function(e) {
+    Vue.set(e, 'idx', k++);
+    Vue.set(e, 'show_modal', false);
+  });
+};
+
+var get_forme_weaves = function() {
+    $.getJSON(get_forme_weaves_url, function(response) {
         app.for_me = response.results;
         console.log(app.for_me);
+        process_weaves();
     });
 };
+
+var get_fromme_weaves = function() {
+  $.getJSON(get_fromme_weaves_url, function(response) {
+      app.from_me = response.results;
+      console.log("fromme");
+      console.log(app.from_me);
+      process_weaves();
+  });
+};
+
+var get_forothers_weaves = function() {
+  $.getJSON(get_forothers_weaves_url, function(response) {
+      app.for_others = response.results;
+      console.log("forothers");
+      console.log(app.for_others);
+      process_weaves();
+  });
+};
+
+var for_me_modal = function(idx) {
+  app.for_me[idx].show_modal = !app.for_me[idx].show_modal;
+};
+
+var from_me_modal = function(idx) {
+  app.from_me[idx].show_modal = !app.from_me[idx].show_modal;
+};
+
+var for_others_modal = function(idx) {
+  app.for_others[idx].show_modal = !app.for_others[idx].show_modal;
+};
+
+
+//USERS
+var process_users = function() {
+  var i=0;
+  app.users.map(function(e) {
+    Vue.set(e, 'idx', i++);
+    Vue.set(e, 'checked', false);
+  });
+};
+
+var get_users = function() {
+  $.getJSON(get_users_url, function(response) {
+    app.users = response.results;
+    console.log(app.users);
+    process_users();
+});
+} 
+
+
 
 var app = new Vue({
     el: '#app',
     delimiters: ['${', '}'],
         unsafeDelimiters: ['!{', '}'],
     data: {
-      for_me: []
+      for_me: [],
+      from_me: [],
+      for_others: [],
+      users: [],
+      title: '',
+      purpose: ''
+    },
+    methods: {
+      for_me_modal: for_me_modal,
+      from_me_modal: from_me_modal,
+      for_others_modal: for_others_modal
     }
-  });
+});
 
-  get_your_weaves();
+get_forme_weaves();
+get_forothers_weaves();
+get_fromme_weaves();
+
+get_users();

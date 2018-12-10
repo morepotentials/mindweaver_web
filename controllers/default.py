@@ -7,7 +7,8 @@
 # ---- example index page ----
 def index():
     if auth.user==None:
-        return redirect(URL('default/user', 'login') + '?_next=/Mindweaver/default/index')
+        url = URL('default', 'index')
+        return redirect(URL('default/user', 'login') + '?_next=' + url)
     return dict()
 
 # ---- API (example) -----

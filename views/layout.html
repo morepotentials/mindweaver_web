@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{=URL('static','css/web2py-bootstrap4.css')}}"/>
     <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{=URL('static','css/interface.css')}}"/>
     <!-- All JavaScript at the bottom, except for Modernizr which enables
          HTML5 elements & feature detects -->
     <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
@@ -68,15 +70,7 @@
       {{=response.toolbar() if response.show_toolbar else ''}}
     </div>
 
-    {{block footer}} <!-- this is default footer -->
-    <div class="fixed-bottom">
-      <footer class="footer">
-        <div class="container">
-          <span class="text-muted">Place sticky footer content here.</span>
-        </div>
-      </footer>
-    </div>
-    {{end}}
+
     <!-- The javascript =============================== -->
     <script src="{{=URL('static','js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{=URL('static','js/web2py-bootstrap4.js')}}"></script>
