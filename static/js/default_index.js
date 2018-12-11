@@ -77,6 +77,54 @@ var get_users = function() {
 });
 } 
 
+create_weave = function() {
+  selected_user = [];
+  for (var i = 0; i<app.users.length ;i++){
+    if(app.users[i].checked){
+      selected_user.push(app.users[i]);
+    }
+  }
+  var new_weave = {
+    title: app.title,
+    purpose: app.purpose,
+    members: selected_user,
+    number_of_users: selected_user.length
+  };
+  $.post(get_create_weave_url, new_weave, function (response) {
+      app.title = undefined;
+      app.purpose = undefined;
+      new_weave.id = response.id;
+      app.from_me.push(new_weave);
+      app.for_others.push(new_weave);
+      process_weaves();
+  });
+
+}
+
+var find_weave = function(array, id){
+  for(var i=0; i< array.length; i++){
+    if(array[i].id == id){
+      return i;
+    }
+  }
+  return -1;
+}
+
+
+var delete_weave = function(idx, id){
+  var deleted_weave = {
+    id: id
+  }
+  console.log(deleted_weave.id)
+  $.post(get_delete_weave_url, deleted_weave,function(response) {
+    var index_in_for_others = find_weave(app.for_others, deleted_weave.id);
+    if(index_in_for_others != -1){
+      app.for_others.splice(index_in_for_others, 1);
+    }
+    app.from_me.splice(idx, 1);
+    process_weaves();
+  });
+}
 
 
 var app = new Vue({
@@ -94,7 +142,9 @@ var app = new Vue({
     methods: {
       for_me_modal: for_me_modal,
       from_me_modal: from_me_modal,
-      for_others_modal: for_others_modal
+      for_others_modal: for_others_modal,
+      create_weave: create_weave,
+      delete_weave: delete_weave,
     }
 });
 

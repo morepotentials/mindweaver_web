@@ -5,10 +5,12 @@
 {{end}}
 <script src="{{=URL('static','js/vue.min.js')}}"></script>
 <script>
-  var get_forme_weaves_url = "{{=URL('api', 'get_fromme_weaves')}}";
+  var get_forme_weaves_url = "{{=URL('api', 'get_forme_weaves')}}";
   var get_fromme_weaves_url = "{{=URL('api', 'get_fromme_weaves')}}";
   var get_forothers_weaves_url = "{{=URL('api', 'get_forothers_weaves')}}";
   var get_users_url = "{{=URL('api', 'get_users')}}";
+  var get_create_weave_url= "{{=URL('api', 'create_weave')}}";
+  var get_delete_weave_url= "{{=URL('api', 'delete_weave')}}";
 
 
 </script>
@@ -18,7 +20,7 @@
   <div class="row top-interface">
 
 <!--START FOR ME-->
-    <div class="col-sm-4 text-center border-right">
+    <div class="col-sm-4 scroll text-center border-right">
         <h3 class="title">For Me</h3>
         <div v-if="for_me.length!=0" v-for="weave in for_me">
           <div class="weave" v-on:click="for_me_modal(weave.idx)">
@@ -59,9 +61,9 @@
 
 
 <!--START FROM ME-->
-    <div class="col-sm-4 text-center border-right">
+    <div class="col-sm-4 scroll text-center border-right">
       <h3 class="title">From Me</h3>
-      <div v-if="for_me.length!=0" v-for="weave in from_me">
+      <div v-if="from_me.length!=0" v-for="weave in from_me">
         <div class="weave" v-on:click="from_me_modal(weave.idx)">
           <div class="weave-title">${weave.title}</div>
           <i class="fas fa-user"></i> ${weave.members.length}
@@ -85,7 +87,8 @@
                           </div>
                       </div>
                       <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" v-on:click="from_me_modal(weave.idx)">Close</button>
+                        <button type="button" class="btn btn-danger" v-on:click="from_me_modal(weave.idx); delete_weave(weave.idx, weave.id)">Delete</button>
+                        <button type="button" class="btn btn-secondary" v-on:click="from_me_modal(weave.idx)">Close</button>
                       </div>
                   </div>
               </div>
@@ -100,7 +103,7 @@
 
 
 <!--START FOR OTHERS-->
-  <div class="col-sm-4 text-center border-right">
+  <div class="col-sm-4 scroll text-center border-right">
     <h3 class="title">For Others</h3>
     <div v-if="for_me.length!=0" v-for="weave in for_others">
       <div class="weave" v-on:click="for_others_modal(weave.idx)">
@@ -150,7 +153,7 @@
     </div>
     <div>
       <label>Purpose</label><br>
-      <input v-model="purpose"></input>${purpose}
+      <input v-model="purpose"></input>
     </div>
     <div class="users">
       <h5>Users</h5>
@@ -164,6 +167,7 @@
   
   </div>
   
+  <button v-on:click="create_weave">Create Weave</button>
 
 </div>
 
