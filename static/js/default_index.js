@@ -13,6 +13,8 @@ var process_weaves = function() {
   });
   app.from_me.map(function(e) {
     Vue.set(e, 'idx', j++);
+    console.log(j);
+    console.log(e.id);
     Vue.set(e, 'show_modal', false);
   });
   app.for_others.map(function(e) {
@@ -24,7 +26,7 @@ var process_weaves = function() {
 var get_forme_weaves = function() {
     $.getJSON(get_forme_weaves_url, function(response) {
         app.for_me = response.results;
-        console.log(app.for_me);
+        //console.log(app.for_me);
         process_weaves();
     });
 };
@@ -32,8 +34,8 @@ var get_forme_weaves = function() {
 var get_fromme_weaves = function() {
   $.getJSON(get_fromme_weaves_url, function(response) {
       app.from_me = response.results;
-      console.log("fromme");
-      console.log(app.from_me);
+      //console.log("fromme");
+      //console.log(app.from_me);
       process_weaves();
   });
 };
@@ -41,8 +43,8 @@ var get_fromme_weaves = function() {
 var get_forothers_weaves = function() {
   $.getJSON(get_forothers_weaves_url, function(response) {
       app.for_others = response.results;
-      console.log("forothers");
-      console.log(app.for_others);
+      //console.log("forothers");
+      //console.log(app.for_others);
       process_weaves();
   });
 };
@@ -52,13 +54,13 @@ var for_me_modal = function(idx) {
 };
 
 var from_me_modal = function(idx) {
+  console.log(app.from_me);
   app.from_me[idx].show_modal = !app.from_me[idx].show_modal;
 };
 
 var for_others_modal = function(idx) {
   app.for_others[idx].show_modal = !app.for_others[idx].show_modal;
 };
-
 
 //USERS
 var process_users = function() {
@@ -91,11 +93,11 @@ create_weave = function() {
     number_of_users: selected_user.length
   };
   $.post(get_create_weave_url, new_weave, function (response) {
-      app.title = undefined;
-      app.purpose = undefined;
+      app.title = '';
+      app.purpose = '';
       new_weave.id = response.id;
-      app.from_me.push(new_weave);
-      app.for_others.push(new_weave);
+      app.from_me.unshift(new_weave);
+      //app.for_others.push(new_weave);
       process_weaves();
   });
 
@@ -126,6 +128,17 @@ var delete_weave = function(idx, id){
   });
 }
 
+var focus_title = function() {
+  setTimeout(function(){
+    $('#weave_title').focus();
+  }, 1);
+};
+
+var focus_purpose = function() {
+  setTimeout(function(){
+    $('#weave_purpose').focus();
+  }, 1);
+};
 
 var app = new Vue({
     el: '#app',
@@ -145,6 +158,8 @@ var app = new Vue({
       for_others_modal: for_others_modal,
       create_weave: create_weave,
       delete_weave: delete_weave,
+      focus_title: focus_title,
+      focus_purpose: focus_purpose,
     }
 });
 

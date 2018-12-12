@@ -20,6 +20,7 @@
          http://google.com/webmasters -->
     <meta name="google-site-verification" content="">
     <!-- include stylesheets -->
+    <script src="{{=URL('static','js/vue.min.js')}}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="{{=URL('static','css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{=URL('static','css/web2py-bootstrap4.css')}}"/>
@@ -30,6 +31,18 @@
     <!-- All JavaScript at the bottom, except for Modernizr which enables
          HTML5 elements & feature detects -->
     <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
+    <style>
+      .hover-nav:hover {
+        cursor: pointer;
+      }
+    </style>
+    <script>
+        var click_create_weave = function() {
+          console.log('here')
+          document.getElementById('create_weave_button').scrollIntoView({behavior: 'smooth'});
+        }
+    </script>
+
     <!-- Favicons -->
     {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
     {{block head}}{{end}}
@@ -47,7 +60,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+            <a class="nav-link hover-nav" onclick="click_create_weave()">Create Weave <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ =URL ('default/user', 'logout')}}">Logout <span class="sr-only">(current)</span></a>

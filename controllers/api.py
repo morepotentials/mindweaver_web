@@ -6,7 +6,7 @@ def get_forme_weaves():
         weave = db(db.weave.id == m.weave_id).select().first()
         if weave.creator != auth.user.email:
             results.append(dict(
-                id=weave.id,
+            id=weave.id,
             title=weave.title,
             purpose=weave.purpose,
             creator=weave.creator,
@@ -18,7 +18,7 @@ def get_forme_weaves():
 
 def get_fromme_weaves():
     results =[]
-    for weave in db(db.weave.creator == auth.user.email).select():
+    for weave in db(db.weave.creator == auth.user.email).select(orderby=~db.weave.id):
         results.append(dict(
             id=weave.id,
             title=weave.title,
