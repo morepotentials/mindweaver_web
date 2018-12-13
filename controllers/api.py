@@ -1,3 +1,10 @@
+def get_author():
+    results =[]
+    results.append(dict(
+        creator=auth.user.email,
+    ))
+    return response.json(dict(results=results))
+
 def get_forme_weaves():
     results =[]
     my_memberships = db(db.weave_membership.user_id == auth.user.id).select()
@@ -59,6 +66,7 @@ def create_weave():
             user_email = request.vars['members[' + str(i) + '][email]'],
             weave_title = request.vars.title,
         )
+        print request.vars['members[' + str(i) + '][email]']
     return response.json(dict(id=weave_id))
 
 def delete_weave():

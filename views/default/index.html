@@ -13,6 +13,7 @@
   var get_users_url = "{{=URL('api', 'get_users')}}";
   var get_create_weave_url= "{{=URL('api', 'create_weave')}}";
   var get_delete_weave_url= "{{=URL('api', 'delete_weave')}}";
+  var get_author_url= "{{=URL('api', 'get_author')}}";
 </script>
 
 <div id ="app" class="interface" style="display: none;">
@@ -34,12 +35,13 @@
         
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            ${weave.title}
-                        </div>
+                        <div class="modal-header">${weave.title}</div>
                         <div class="modal-body">
                             ${weave.purpose}
                             <div>
+                              <hr>
+                              ${weave.creator}
+                              <hr>
                               <div v-for="member in weave.members">
                                 <div>${member.user_email}</div>
                               </div>
@@ -81,6 +83,9 @@
                       <div class="modal-body">
                           ${weave.purpose}
                           <div>
+                            <hr>
+                            ${weave.creator}
+                            <hr>
                             <div v-for="member in weave.members">
                               <div>${member.user_email}</div>
                             </div>
@@ -123,6 +128,7 @@
                     <div class="modal-body">
                         ${weave.purpose}
                         <div>
+                          <hr>
                           <div v-for="member in weave.members">
                             <div>${member.user_email}</div>
                           </div>

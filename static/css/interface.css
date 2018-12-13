@@ -65,6 +65,11 @@ body,html {
     font-weight: bold;
 }
 
+.modal-header{
+    display: block;
+    margin: auto;
+}
+
 .modal-mask {
     position: fixed;
     z-index: 9998;
@@ -75,15 +80,16 @@ body,html {
     background-color: rgba(0, 0, 0, .5);
     display: table;
     transition: opacity .3s ease;
+    text-align: center;
   }
   
 .modal-wrapper {
-display: table-cell;
-vertical-align: middle;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .row.bottom-interface {
-padding: 10px;
+    padding: 10px;
 }
 
 .weave-section-title {

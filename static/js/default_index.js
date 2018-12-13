@@ -13,8 +13,8 @@ var process_weaves = function() {
   });
   app.from_me.map(function(e) {
     Vue.set(e, 'idx', j++);
-    console.log(j);
-    console.log(e.id);
+    //console.log(j);
+    //console.log(e.id);
     Vue.set(e, 'show_modal', false);
   });
   app.for_others.map(function(e) {
@@ -22,6 +22,7 @@ var process_weaves = function() {
     Vue.set(e, 'show_modal', false);
   });
 };
+
 
 var get_forme_weaves = function() {
     $.getJSON(get_forme_weaves_url, function(response) {
@@ -54,7 +55,7 @@ var for_me_modal = function(idx) {
 };
 
 var from_me_modal = function(idx) {
-  console.log(app.from_me);
+  //console.log(app.from_me);
   app.from_me[idx].show_modal = !app.from_me[idx].show_modal;
 };
 
@@ -74,7 +75,7 @@ var process_users = function() {
 var get_users = function() {
   $.getJSON(get_users_url, function(response) {
     app.users = response.results;
-    console.log(app.users);
+    //console.log(app.users);
     process_users();
 });
 } 
@@ -83,20 +84,25 @@ create_weave = function() {
   selected_user = [];
   for (var i = 0; i<app.users.length ;i++){
     if(app.users[i].checked){
+      Vue.set(app.users[i], 'user_email', app.users[i].email);
       selected_user.push(app.users[i]);
     }
   }
+
   var new_weave = {
     title: app.title,
     purpose: app.purpose,
     members: selected_user,
-    number_of_users: selected_user.length
+    number_of_users: selected_user.length,
+    creator: app.creator,
   };
   $.post(get_create_weave_url, new_weave, function (response) {
       app.title = '';
       app.purpose = '';
       new_weave.id = response.id;
       app.from_me.unshift(new_weave);
+
+      console.log(app.from_me);
       //app.for_others.push(new_weave);
       process_weaves();
   });
@@ -117,7 +123,7 @@ var delete_weave = function(idx, id){
   var deleted_weave = {
     id: id
   }
-  console.log(deleted_weave.id)
+  //console.log(deleted_weave.id)
   $.post(get_delete_weave_url, deleted_weave,function(response) {
     var index_in_for_others = find_weave(app.for_others, deleted_weave.id);
     if(index_in_for_others != -1){
@@ -140,6 +146,14 @@ var focus_purpose = function() {
   }, 1);
 };
 
+var get_author = function (){
+  $.getJSON(get_author_url, function(response){
+    app.creator = response.results[0].creator;
+    app.creator_array.push(response.results[0].creator);
+    console.log(response.results[0].creator)
+  })
+}
+
 var app = new Vue({
     el: '#app',
     delimiters: ['${', '}'],
@@ -150,7 +164,8 @@ var app = new Vue({
       for_others: [],
       users: [],
       title: '',
-      purpose: ''
+      purpose: '',
+      creator: '',
     },
     methods: {
       for_me_modal: for_me_modal,
@@ -168,3 +183,5 @@ get_forothers_weaves();
 get_fromme_weaves();
 
 get_users();
+
+get_author();
