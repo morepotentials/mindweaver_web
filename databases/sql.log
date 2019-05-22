@@ -1,4 +1,4 @@
-timestamp: 2018-11-28T11:05:40.487186
+timestamp: 2019-05-22T21:49:29.560000
 CREATE TABLE "auth_user"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "first_name" CHAR(128),
@@ -10,21 +10,21 @@ CREATE TABLE "auth_user"(
     "registration_id" CHAR(512)
 );
 success!
-timestamp: 2018-11-28T11:05:40.568275
+timestamp: 2019-05-22T21:49:29.693000
 CREATE TABLE "auth_group"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "role" CHAR(512),
     "description" TEXT
 );
 success!
-timestamp: 2018-11-28T11:05:40.655718
+timestamp: 2019-05-22T21:49:29.766000
 CREATE TABLE "auth_membership"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE  ,
     "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE  
 );
 success!
-timestamp: 2018-11-28T11:05:40.723312
+timestamp: 2019-05-22T21:49:29.811000
 CREATE TABLE "auth_permission"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE  ,
@@ -33,7 +33,7 @@ CREATE TABLE "auth_permission"(
     "record_id" INTEGER
 );
 success!
-timestamp: 2018-11-28T11:05:40.796676
+timestamp: 2019-05-22T21:49:29.853000
 CREATE TABLE "auth_event"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "time_stamp" TIMESTAMP,
@@ -43,7 +43,7 @@ CREATE TABLE "auth_event"(
     "description" TEXT
 );
 success!
-timestamp: 2018-11-28T11:05:40.871331
+timestamp: 2019-05-22T21:49:29.906000
 CREATE TABLE "auth_cas"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE  ,
@@ -53,14 +53,15 @@ CREATE TABLE "auth_cas"(
     "renew" CHAR(1)
 );
 success!
-timestamp: 2018-11-28T12:24:18.684438
+timestamp: 2019-05-22T21:49:29.975000
 CREATE TABLE "weave"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "title" CHAR(512),
-    "purpose" CHAR(512)
+    "purpose" CHAR(512),
+    "creator" CHAR(512)
 );
 success!
-timestamp: 2018-11-28T12:24:18.753836
+timestamp: 2019-05-22T21:49:30.025000
 CREATE TABLE "weave_membership"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "user_email" CHAR(512),
@@ -68,7 +69,4 @@ CREATE TABLE "weave_membership"(
     "weave_id" INTEGER REFERENCES "weave" ("id") ON DELETE CASCADE  ,
     "weave_title" CHAR(512)
 );
-success!
-timestamp: 2018-12-04T16:32:58.168108
-ALTER TABLE "weave" ADD "creator" CHAR(512);
 success!

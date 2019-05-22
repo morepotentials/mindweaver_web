@@ -36,12 +36,6 @@
         cursor: pointer;
       }
     </style>
-    <script>
-        var click_create_weave = function() {
-          console.log('here')
-          document.getElementById('create_weave_button').scrollIntoView({behavior: 'smooth'});
-        }
-    </script>
 
     <!-- Favicons -->
     {{include 'web2py_ajax.html'}} <!-- this includes jquery.js, calendar.js/.css and web2py.js -->
@@ -50,35 +44,12 @@
   <body>
     <div class="w2p_flash alert alert-dismissable">{{=response.flash or ''}}</div>
     <!-- Navbar ======================================= -->
-   
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{{ =URL ('default', 'index')}}">MindWeaver</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link hover-nav" onclick="click_create_weave()">Create Weave <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ =URL ('default/user', 'logout')}}">Logout <span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-
-
-
-
     <!-- Masthead ===================================== -->
     {{block header}}
     {{end}}
     <!-- Main ========================================= -->
     <!-- Begin page content -->
-    <div class="container-fluid main-container">
+    <div class="">
       {{include}}
       {{=response.toolbar() if response.show_toolbar else ''}}
     </div>

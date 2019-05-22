@@ -1,0 +1,40 @@
+<link rel="stylesheet" type="text/css" href="{{ = URL('static/css', 'forothers.css') }}"/>
+
+<div v-if="page == 'forOthers'" class="forothers">
+    <h3 class="title">For Others</h3>
+    <div v-if="for_me.length!=0" v-for="weave in for_others">
+      <div class="weave" v-on:click="for_others_modal(weave.idx)">
+        <div class="weave-title">${weave.title}</div>
+        <i class="fas fa-user"></i> ${weave.members.length}
+      </div>
+      <div v-if="weave.show_modal">
+        <transition name="modal">
+          <div class="modal-mask">
+            <div class="modal-wrapper">
+    
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        ${weave.title}
+                    </div>
+                    <div class="modal-body">
+                        ${weave.purpose}
+                        <div>
+                          <hr>
+                          <div v-for="member in weave.members">
+                            <div>${member.user_email}</div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" v-on:click="for_others_modal(weave.idx)">Close</button>
+                    </div>
+                </div>
+            </div>
+    
+            </div>
+          </div>
+        </transition>
+      </div>
+    </div>
+</div>

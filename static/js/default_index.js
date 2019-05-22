@@ -166,6 +166,8 @@ var app = new Vue({
       title: '',
       purpose: '',
       creator: '',
+      page: 'fromMe',
+      creator_array: []
     },
     methods: {
       for_me_modal: for_me_modal,

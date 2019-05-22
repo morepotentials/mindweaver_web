@@ -4,175 +4,29 @@
 
 {{end}}
 <script>
-  setTimeout(function() {
+  setTimeout(function () {
     document.getElementById('app').style = 'display:block;'
   }, 250);
   var get_forme_weaves_url = "{{=URL('api', 'get_forme_weaves')}}";
   var get_fromme_weaves_url = "{{=URL('api', 'get_fromme_weaves')}}";
   var get_forothers_weaves_url = "{{=URL('api', 'get_forothers_weaves')}}";
   var get_users_url = "{{=URL('api', 'get_users')}}";
-  var get_create_weave_url= "{{=URL('api', 'create_weave')}}";
-  var get_delete_weave_url= "{{=URL('api', 'delete_weave')}}";
-  var get_author_url= "{{=URL('api', 'get_author')}}";
+  var get_create_weave_url = "{{=URL('api', 'create_weave')}}";
+  var get_delete_weave_url = "{{=URL('api', 'delete_weave')}}";
+  var get_author_url = "{{=URL('api', 'get_author')}}";
 </script>
 
-<div id ="app" class="interface" style="display: none;">
+<div id="app" class="interface" style="display: none;">
 
-  <div class="row top-interface">
+  {{ include 'default/nav.html' }}
 
-<!--START FOR ME-->
-    <div class="col-sm-4 scroll text-center border-right">
-        <h3 class="title">For Me</h3>
-        <div v-if="for_me.length!=0" v-for="weave in for_me">
-          <div class="weave" v-on:click="for_me_modal(weave.idx)">
-            <div class="weave-title">${weave.title}</div>
-            <i class="fas fa-user"></i> ${weave.members.length}
-          </div>
-          <div v-if="weave.show_modal">
-            <transition name="modal">
-              <div class="modal-mask">
-                <div class="modal-wrapper">
-        
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">${weave.title}</div>
-                        <div class="modal-body">
-                            ${weave.purpose}
-                            <div>
-                              <hr>
-                              ${weave.creator}
-                              <hr>
-                              <div v-for="member in weave.members">
-                                <div>${member.user_email}</div>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" v-on:click="for_me_modal(weave.idx)">Close</button>
-                        </div>
-                    </div>
-                </div>
-        
-                </div>
-              </div>
-            </transition>
-          </div>
-        </div>
-    </div>
-<!--END FOR ME-->
+  {{ include 'default/forme.html' }}
 
+  {{ include 'default/fromme.html' }}
 
-<!--START FROM ME-->
-    <div class="col-sm-4 scroll text-center border-right">
-      <h3 class="title">From Me</h3>
-      <div v-if="from_me.length!=0" v-for="weave in from_me">
-        <div class="weave" v-on:click="from_me_modal(weave.idx)">
-          <div class="weave-title">${weave.title}</div>
-          <i class="fas fa-user"></i> ${weave.members.length}
-        </div>
-        <div v-if="weave.show_modal">
-          <transition name="modal">
-            <div class="modal-mask">
-              <div class="modal-wrapper">
-      
-              <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          ${weave.title}
-                      </div>
-                      <div class="modal-body">
-                          ${weave.purpose}
-                          <div>
-                            <hr>
-                            ${weave.creator}
-                            <hr>
-                            <div v-for="member in weave.members">
-                              <div>${member.user_email}</div>
-                            </div>
-                          </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" v-on:click="from_me_modal(weave.idx); delete_weave(weave.idx, weave.id)">Delete</button>
-                        <button type="button" class="btn btn-secondary" v-on:click="from_me_modal(weave.idx)">Close</button>
-                      </div>
-                  </div>
-              </div>
-      
-              </div>
-            </div>
-          </transition>
-        </div>
-      </div>
-    </div>
-<!--END FROM ME-->
+  {{ include 'default/forothers.html' }}
 
-
-<!--START FOR OTHERS-->
-  <div class="col-sm-4 scroll text-center border-right">
-    <h3 class="title">For Others</h3>
-    <div v-if="for_me.length!=0" v-for="weave in for_others">
-      <div class="weave" v-on:click="for_others_modal(weave.idx)">
-        <div class="weave-title">${weave.title}</div>
-        <i class="fas fa-user"></i> ${weave.members.length}
-      </div>
-      <div v-if="weave.show_modal">
-        <transition name="modal">
-          <div class="modal-mask">
-            <div class="modal-wrapper">
-    
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        ${weave.title}
-                    </div>
-                    <div class="modal-body">
-                        ${weave.purpose}
-                        <div>
-                          <hr>
-                          <div v-for="member in weave.members">
-                            <div>${member.user_email}</div>
-                          </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" v-on:click="for_others_modal(weave.idx)">Close</button>
-                    </div>
-                </div>
-            </div>
-    
-            </div>
-          </div>
-        </transition>
-      </div>
-    </div>
-  </div>
-<!--END FOR OTHERS-->
-  
-  </div>
-
-
-  <div class="row bottom-interface">
-    <h3 class="text-center weave-section-title">Weave</h3>
-    <div>
-      <textarea v-if="title==''" class="empty-textarea title-text" placeholder="Title" v-model="title"></textarea>
-      <textarea v-on:change="focus_title()" id="weave_title" v-if="title!=''" class="not-empty-textarea title-text" v-model="title"></textarea>
-    </div>
-    <div>
-      <textarea v-if="purpose==''" class="empty-textarea" placeholder="Purpose" v-model="purpose"></textarea>
-      <textarea v-on:change="focus_purpose()" id="weave_purpose" v-if="purpose!=''" class="not-empty-textarea" v-model="purpose"></textarea>
-    </div>
-    <div class="users">
-      <div class="user-container">
-          <div class="user-checkbox" v-for="user in users">
-            <label>${user.first_name}</label>
-            <input v-model="user.checked" type="checkbox"/>
-          </div>
-      </div>
-    </div>
-  
-  </div>
-  
-  <button id="create_weave_button" v-on:click="create_weave" class="create-weave">Create Weave</button>
+  {{ include 'default/weave.html' }}
 
 </div>
 
