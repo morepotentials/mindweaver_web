@@ -1,0 +1,35 @@
+.card {
+  border-radius: 0;
+  border-width: 0px;
+  margin-bottom: 20px; 
+}
+
+
+.card-purpose {
+/*  background-color: #bdbdbd;
+*/}
+
+.card-members {
+}
+
+.cards-container {
+    margin-top: 20px;
+}
+
+.members-avatar {
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.initiator {
+  border-style: solid;
+  border-width: 4px;
+  border-color: #bdbdbd;
+}
+
+
+.card-shadows {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  }

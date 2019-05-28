@@ -11,7 +11,7 @@
       <textarea v-on:change="focus_purpose()" id="weave_purpose" v-if="purpose!=''" class="not-empty-textarea" v-model="purpose"></textarea>
     </div>
     <div class="users">
-      <div class="user-container">
+      <div class="user-cont">
           <div class="user-checkbox" v-for="user in users">
             <label>${user.first_name}</label>
             <input v-model="user.checked" type="checkbox"/>

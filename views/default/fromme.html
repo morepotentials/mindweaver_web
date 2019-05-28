@@ -1,43 +1,77 @@
 <link rel="stylesheet" type="text/css" href="{{ = URL('static/css', 'fromme.css') }}"/>
 
+
 <div v-if="page == 'fromMe'" class="fromme">
-    <h3 class="title">From Me</h3>
-      <div v-if="from_me.length!=0" v-for="weave in from_me">
-        <div class="weave" v-on:click="from_me_modal(weave.idx)">
-          <div class="weave-title">${weave.title}</div>
-          <i class="fas fa-user"></i> ${weave.members.length}
-        </div>
-        <div v-if="weave.show_modal">
-          <transition name="modal">
-            <div class="modal-mask">
-              <div class="modal-wrapper">
+
+
+
+
+    <div class="container cards-container">
+        <div class="row justify-content-center">
+
+
+
+    <div v-if="from_me.length!=0" v-for="weave in from_me">
+
+          
+
+              <div class="col-lg-12 d-flex align-items-stretch mx-auto">
+
+              <div class="card card-shadows" style="width: 12rem;" v-on:click="from_me_modal(weave.idx)">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">${weave.title} </h5>
       
-              <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          ${weave.title}
-                      </div>
-                      <div class="modal-body">
-                          ${weave.purpose}
-                          <div>
-                            <hr>
-                            ${weave.creator}
-                            <hr>
-                            <div v-for="member in weave.members">
-                              <div>${member.user_email}</div>
-                            </div>
-                          </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" v-on:click="from_me_modal(weave.idx); delete_weave(weave.idx, weave.id)">Delete</button>
-                        <button type="button" class="btn btn-secondary" v-on:click="from_me_modal(weave.idx)">Close</button>
-                      </div>
+                </div>
+
+                <div class="card-body card-purpose">
+                    <p>Purpose<br>
+                      Purpose<br>
+                      Purpose<br>
+                      Purpose...more
+                    </p>
                   </div>
+                <i class="fas fa-user"></i> ${weave.members.length}
               </div>
-      
+              <div v-if="weave.show_modal">
+                <transition name="modal">
+                  <div class="modal-mask">
+                    <div class="modal-wrapper">
+            
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                ${weave.title}
+                            </div>
+                            <div class="modal-body">
+                                ${weave.purpose}
+                                <div>
+                                  <hr>
+                                  ${weave.creator}
+                                  <hr>
+                                  <div v-for="member in weave.members">
+                                    <div>${member.user_email}</div>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" v-on:click="from_me_modal(weave.idx); delete_weave(weave.idx, weave.id)">Delete</button>
+                              <button type="button" class="btn btn-secondary" v-on:click="from_me_modal(weave.idx)">Close</button>
+                            </div>
+                        </div>
+                    </div>
+            
+                    </div>
+                  </div>
+                </transition>
               </div>
+
             </div>
-          </transition>
+
+            </div>
+
         </div>
       </div>
+
 </div>
